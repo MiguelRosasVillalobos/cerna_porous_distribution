@@ -11,7 +11,7 @@ with open("puntos.csv", newline="") as csvfile:
         puntos.append((float(row[0]), float(row[1])))
 
 # Definir el número de celdas (bins) para la prueba de Chi-cuadrado
-num_bins = 3
+num_bins = 50
 radio = $rdd - 2 * $rpp
 
 # Crear una cuadrícula de celdas en el círculo
