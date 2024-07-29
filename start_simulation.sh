@@ -15,6 +15,8 @@ a=$(grep -oP 'a\s*=\s*\K[\d.+-]+' parametros.txt)
 rp=$(grep -oP 'rp\s*=\s*\K[\d.+-]+' parametros.txt)
 np=$(grep -oP 'np\s*=\s*\K[\d.+-]+' parametros.txt)
 
+touch puntos.csv
+
 # Bucle para crear y mover carpetas, editar y genrar mallado
 for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 	# Genera el nombre de la carpeta
@@ -24,20 +26,25 @@ for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 	mkdir "$carpeta_caso_i"
 
 	# Copia carpetas del caso dentro de las carpetasgeneradas
+	cp "Case_0/verificador.py" ./
 	cp -r "Case_0/geometry_script/" "$carpeta_caso_i/"
 	cd "$carpeta_caso_i/"
 
 	# Reemplazar valores en sus respectivos archivos
 	sed -i "s/\$npp/$np/g" ./geometry_script/generator_point_process.py
 	sed -i "s/\$rpp/$rp/g" ./geometry_script/generator_point_process.py
+	sed -i "s/\$rpp/$rp/g" ../verificador.py
 	sed -i "s/\$rdd/$rd/g" ./geometry_script/generator_point_process.py
+	sed -i "s/\$rdd/$rd/g" ../verificador.py
 
 	cd "./geometry_script/"
 	#Generar mallado gmsh
 	python3 generator_point_process.py
 	mv conteo_puntos.txt ../
 	mv puntos.csv ../
-	cd ../..
+	cd ../
+	awk '{print}' puntos.csv >>../puntos.csv
+	cd ../
 done
 
 echo "Proceso completado."
