@@ -14,7 +14,7 @@ rd=$(grep -oP 'rd\s*=\s*\K[\d.+-]+' parametros.txt)
 a=$(grep -oP 'a\s*=\s*\K[\d.+-]+' parametros.txt)
 rp=$(grep -oP 'rp\s*=\s*\K[\d.+-]+' parametros.txt)
 np=$(grep -oP 'np\s*=\s*\K[\d.+-]+' parametros.txt)
-
+rm puntos.csv
 touch puntos.csv
 
 # Bucle para crear y mover carpetas, editar y genrar mallado
@@ -46,5 +46,15 @@ for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 	awk '{print}' puntos.csv >>../puntos.csv
 	cd ../
 done
+rm -r ./Case_1*
+rm -r ./Case_2*
+rm -r ./Case_3*
+rm -r ./Case_4*
+rm -r ./Case_5*
+rm -r ./Case_6*
+rm -r ./Case_7*
+rm -r ./Case_8*
+rm -r ./Case_9*
+python3 verificador.py
 
 echo "Proceso completado."
