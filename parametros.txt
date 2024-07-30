@@ -1,9 +1,6 @@
 // radio del ducto
 rd = 0.0284 // m 
 
-// espesor de la placa
-a = 0.01  // m (Segun placa usada por rodrigo Muñoz)
-
 // radio del poro
 rp = 0.003 // m (broca de 6mm)
 
